@@ -25,10 +25,9 @@ def main():
         st.write("")
         st.write("Classifying...")
 
-        # Preprocess the image
+        # Resize image and convert to numpy array
         image = image.resize((224, 224))
         image = np.array(image)
-        image = preprocess_input(image)
 
         # Make predictions
         predictions = model.predict(np.expand_dims(image, axis=0))
@@ -49,3 +48,4 @@ def main():
 # Run the app
 if __name__ == '__main__':
     main()
+
