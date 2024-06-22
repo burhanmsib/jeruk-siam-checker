@@ -2,13 +2,13 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 import tensorflow as tf
-from tensorflow.keras import models, layers
+from tensorflow.keras.applications.resnet50 import preprocess_input
 
 # Appname
 st.set_page_config(page_title="Citrus Leaf Disease Classifier", layout="wide")
 
 # Load your model and its weights
-model = tf.keras.models.load_model('CNN-JerukSiamChecker.h5')
+model = tf.keras.models.load_model('CNN-JerukSiamChecker.h5', compile=False)
 class_names = ["Blackspot Leaf", "Canker Leaf", "Greening Leaf", "Powdery Mildew", "Citrus Leafminer", "Healthy Leaf"]
 
 # Define the Streamlit app
@@ -25,21 +25,22 @@ def main():
         st.write("")
         st.write("Classifying...")
 
-        # Preprocess the image (jika diperlukan)
+        # Preprocess the image
         image = image.resize((224, 224))
         image = np.array(image)
         image = preprocess_input(image)
 
         # Make predictions
-        image = np.array(image.resize((224, 224)))  # Ubah sesuai kebutuhan dimensi model
-        image = image / 255.0  # Normalisasi jika diperlukan
         predictions = model.predict(np.expand_dims(image, axis=0))
 
-        predicted_class = np.argmax(predictions)
-        confidence = predictions[0][predicted_class]
+        if np.isnan(predictions).any():
+            st.write("Prediction result is NaN. Please try with another image")
+        else:
+            predicted_class = np.argmax(predictions)
+            confidence = predictions[0][predicted_class]
 
-        st.write(f"Predicted class: {class_names[predicted_class]}")
-        st.write(f"Confidence: {confidence:.2f}")
+            st.write(f"Predicted class: {class_names[predicted_class]}")
+            st.write(f"Confidence: {confidence:.2f}")
 
     st.title("This model is capable of classifying:")
     for class_name in class_names:
@@ -48,4 +49,3 @@ def main():
 # Run the app
 if __name__ == '__main__':
     main()
-
