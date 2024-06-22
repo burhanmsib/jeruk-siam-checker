@@ -9,11 +9,9 @@ import style
 page_bg_img = style.stylespy()  # used for styling the page
 
 # Appname
-st.set_page_config(page_title="Citrus Leaf Disease Classifier", layout="wide")
+st.set_page_config(page_title="JERUK SIAM CHECKER", layout="wide")
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
-
-st.markdown("<h1 style='text-align: center; color: #fff;'>Citrus Leaf Disease Classifier</h1>", unsafe_allow_html=True)
 
 
 # Load your model and its weights
@@ -22,7 +20,7 @@ class_names = ["Blackspot Leaf", "Canker Leaf", "Greening Leaf", "Powdery Mildew
 
 # Define the Streamlit app
 def main():
-    st.markdown("<h1 style='text-align: center; color: #fff;'>Citrus Leaf Disease Classifier</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: #fff;'>JERUK SIAM CHECKER</h1>", unsafe_allow_html=True)
     st.write("Upload an image for classification")
 
     uploaded_file = st.file_uploader("Choose an image...", type="jpg")
