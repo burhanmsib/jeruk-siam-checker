@@ -17,11 +17,12 @@ st.markdown("<h1 style='text-align: center; color: #fff;'>Citrus Leaf Disease Cl
 
 
 # Load your model and its weights
-model = tf.keras.models.load_model('CNN-JerukSiamChecker.h5')
-class_names = ["Blackspot Leaf","Canker Leaf","Greening Leaf","Powdery Mildew","Citrus Leafminer","Healthy Leaf"]  # List of your class names
+model = tf.keras.models.load_model('CNN-JerukSiamChecker.h5', compile=False)
+class_names = ["Blackspot Leaf", "Canker Leaf", "Greening Leaf", "Powdery Mildew", "Citrus Leafminer", "Healthy Leaf"]
 
 # Define the Streamlit app
 def main():
+    st.markdown("<h1 style='text-align: center; color: #fff;'>Citrus Leaf Disease Classifier</h1>", unsafe_allow_html=True)
     st.write("Upload an image for classification")
 
     uploaded_file = st.file_uploader("Choose an image...", type="jpg")
@@ -40,23 +41,20 @@ def main():
 
         # Make predictions
         predictions = model.predict(np.expand_dims(image, axis=0))
-    
+
         if np.isnan(predictions).any():
-         st.write("Prediction result is NaN. Please try with another image")
+            st.write("Prediction result is NaN. Please try with another image")
         else:
-         predicted_class = np.argmax(predictions)
-         confidence = predictions[0][predicted_class]
+            predicted_class = np.argmax(predictions)
+            confidence = predictions[0][predicted_class]
 
-         st.write(f"Predicted class: {class_names[predicted_class]}")
-         st.write(f"Confidence: {confidence:.2f}")
-
-    items = [
-    'Blackspot Leaf', 'Canker Leaf', 'Greening Leaf', 
-    'Powdery Mildew', 'Citrus Leafminer', 'Healthy Leaf']
+            st.write(f"Predicted class: {class_names[predicted_class]}")
+            st.write(f"Confidence: {confidence:.2f}")
 
     st.title("This model is capable of classifying:")
-    for item in items:
-        st.write("- " + item)
+    for class_name in class_names:
+        st.write("- " + class_name)
+
 # Run the app
 if __name__ == '__main__':
     main()
