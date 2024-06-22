@@ -5,7 +5,7 @@ import tensorflow as tf
 from tensorflow.keras import models, layers
 
 # Appname
-st.set_page_config(page_title="Citrus Leaf Disease Classifier", layout="wide")
+st.set_page_config(page_title="JERUK SIAM CHECKER", layout="wide")
 
 # Load your model and its weights
 model = tf.keras.models.load_model('CNN-JerukSiamChecker.h5', compile=False)
@@ -13,7 +13,7 @@ class_names = ["Blackspot Leaf", "Canker Leaf", "Greening Leaf", "Powdery Mildew
 
 # Define the Streamlit app
 def main():
-    st.markdown("<h1 style='text-align: center; color: #fff;'>Citrus Leaf Disease Classifier</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: #fff;'>JERUK SIAM CHECKER</h1>", unsafe_allow_html=True)
     st.write("Upload an image for classification")
 
     uploaded_file = st.file_uploader("Choose an image...", type="jpg")
